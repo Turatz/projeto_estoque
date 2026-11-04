@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Estoque{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <nav>
+    <strong> Estoque</strong>
+    {% if user.is_authenticated %}
+      <a href="{% url 'produtos:lista' %}">Produtos</a>
+      <a href="{% url 'admin:index' %}">Admin</a>
+      <form method="post" action="{% url 'logout' %}" class="logout">
+        {% csrf_token %}
+        <button>Sair</button>
+        {% if user.is_staff %}
+      <a href="{% url 'admin:index' %}">Admin</a>
+        {% endif %}
+      </form>
+    {% endif %}
+      <a href="{% url 'core:home' %}">Início</a>
+  </nav>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
