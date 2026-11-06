@@ -2,16 +2,19 @@
 {% block title %}Produtos{% endblock %}
 
 {% block content %}
-<h1>Produtos</h1>
+<div class="topo">
+  <h1>Produtos</h1>
+  <a href="{% url 'produtos:novo' %}" class="btn">+ Novo produto</a>
+</div>
 
 <form method="get">
   <input type="text" name="q" placeholder="Buscar produto..." value="{{ request.GET.q }}">
-  <button>Buscar</button>
+  <button class="btn">Buscar</button>
 </form>
 
 <table>
   <thead>
-    <tr><th>SKU</th><th>Nome</th><th>Categoria</th><th>Qtd</th><th>Preço</th></tr>
+    <tr><th>SKU</th><th>Nome</th><th>Categoria</th><th>Qtd</th><th>Preço</th><th></th></tr>
   </thead>
   <tbody>
     {% for p in produtos %}
@@ -21,9 +24,13 @@
       <td>{{ p.categoria }}</td>
       <td>{{ p.quantidade_atual }}</td>
       <td>R$ {{ p.preco_venda }}</td>
+      <td class="acoes">
+        <a href="{% url 'produtos:editar' p.pk %}">Editar</a>
+        <a href="{% url 'produtos:apagar' p.pk %}">Apagar</a>
+      </td>
     </tr>
     {% empty %}
-    <tr><td colspan="5">Nenhum produto encontrado.</td></tr>
+    <tr><td colspan="6">Nenhum produto encontrado.</td></tr>
     {% endfor %}
   </tbody>
 </table>

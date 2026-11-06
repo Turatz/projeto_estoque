@@ -1,0 +1,17 @@
+<table>
+  <thead><tr><th>Nome</th><th>Itens</th><th></th></tr></thead>
+  <tbody>
+    {% for c in categorias %}
+    <tr>
+      <td><a href="{% url 'produtos:categoria_detalhe' c.pk %}">{{ c.nome }}</a></td>
+      <td>{{ c.total }}</td>
+      <td class="acoes">
+        <a href="{% url 'produtos:categoria_editar' c.pk %}">Editar</a>
+        <a href="{% url 'produtos:categoria_apagar' c.pk %}">Apagar</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="3">Nenhuma categoria cadastrada.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>

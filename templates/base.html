@@ -22,9 +22,15 @@
       </form>
     {% endif %}
       <a href="{% url 'core:home' %}">Início</a>
+      <a href="{% url 'produtos:categorias' %}">Categorias</a>
   </nav>
   <main>
-    {% block content %}{% endblock %}
-  </main>
+  {% if messages %}
+    {% for m in messages %}
+      <div class="msg msg-{{ m.tags }}">{{ m }}</div>
+    {% endfor %}
+  {% endif %}
+  {% block content %}{% endblock %}
+</main>
 </body>
 </html>

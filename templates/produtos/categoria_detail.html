@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}{{ object.nome }}{% endblock %}
+
+{% block content %}
+<div class="topo">
+  <h1>{{ object.nome }}</h1>
+  <a href="{% url 'produtos:novo' %}?categoria={{ object.pk }}" class="btn">+ Novo item nesta categoria</a>
+</div>
+
+<p><a href="{% url 'produtos:categorias' %}">← Voltar às categorias</a></p>
+
+<table>
+  <thead>
+    <tr><th>SKU</th><th>Nome</th><th>Qtd</th><th>Preço</th><th></th></tr>
+  </thead>
+  <tbody>
+    {% for p in produtos %}
+    <tr class="{% if p.abaixo_do_minimo %}alerta{% endif %}">
+      <td>{{ p.sku }}</td>
+      <td>{{ p.nome }}</td>
+      <td>{{ p.quantidade_atual }}</td>
+      <td>R$ {{ p.preco_venda }}</td>
+      <td class="acoes">
+        <a href="{% url 'produtos:editar' p.pk %}">Editar</a>
+        <a href="{% url 'produtos:apagar' p.pk %}">Apagar</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">Nenhum item nesta categoria ainda.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
